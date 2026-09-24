@@ -2,6 +2,7 @@ package chess;
 
 import java.util.Collection;
 import java.util.Objects;
+import java.util.ArrayList;
 
 /**
  * Represents a single chess piece
@@ -53,7 +54,81 @@ public class ChessPiece {
      * @return Collection of valid moves
      */
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
+        if (type == PieceType.ROOK){
+            return rookMoves(board, myPosition);
+        }
+
+        if (type == PieceType.BISHOP){
+            return bishopMoves(board, myPosition);
+        }
+
         throw new RuntimeException("Not implemented");
+    }
+
+    /**
+     * determine rook moves
+     */
+    private Collection<ChessMove> rookMoves(ChessBoard board, ChessPosition myPosition) {
+        int[][] directions = {
+                {1, 0},
+                {-1, 0},
+                {0, 1},
+                {0, -1}
+        };
+
+        return slidingMoves(board, myPosition, directions);
+    }
+
+    /**
+     * determine bishop moves
+     */
+
+
+
+
+
+    /**
+     * determinds movement for pieces that move repeatedly in a single stragight direction
+     * untill blocked, like the rook, bishop, or queen
+     */
+    private Collection<ChessMove> slidingMoves(
+            ChessBoard board,
+            ChessPosition myposition,
+            int[][] directions) {
+        Collection<ChessMove> moves = new ArrayList<>();
+
+        for (int[] direction : directions) {
+            int row = myposition.getRow() + direction[0];
+            int col = myposition.getColumn() + direction[1];
+
+            while (isOnBoard(row, col)){
+                ChessPosition endPosition = new ChessPosition(row, col);
+                ChessPiece pieceAtPosition = board.getPiece(endPosition);
+
+                if (pieceAtPosition == null){
+                    moves.add(new ChessMove(myposition, endPosition, null));
+                } else {
+                    if (pieceAtPosition.getTeamColor() != pieceColor) {
+                        moves.add(new ChessMove(myposition, endPosition, null));
+                    }
+
+                    break;
+                }
+
+                row += direction[0];
+                col += direction[1];
+            }
+        }
+
+        return moves;
+    }
+
+    /**
+     * checks if the row or column are inside the board
+     */
+    private boolean isOnBoard(int row, int col) {
+        return row >= 1 && row <=8
+                && col >= 1 && col <= 8;
     }
 
     @Override
