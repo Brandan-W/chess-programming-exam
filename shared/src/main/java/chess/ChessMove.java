@@ -12,13 +12,13 @@ public class ChessMove {
 
     private final ChessPosition startPosition;
     private final ChessPosition endPosition;
-    private final ChessPiece.PieceType promotionpiece;
+    private final ChessPiece.PieceType promotionPiece;
 
     public ChessMove(ChessPosition startPosition, ChessPosition endPosition,
                      ChessPiece.PieceType promotionPiece) {
         this.startPosition = startPosition;
         this.endPosition = endPosition;
-        this.promotionpiece = promotionPiece;
+        this.promotionPiece = promotionPiece;
     }
 
     /**
@@ -42,7 +42,7 @@ public class ChessMove {
      * @return Type of piece to promote a pawn to, or null if no promotion
      */
     public ChessPiece.PieceType getPromotionPiece() {
-        return promotionpiece;
+        return promotionPiece;
     }
 
     @Override
@@ -55,17 +55,17 @@ public class ChessMove {
         }
         return Objects.equals(startPosition, that.startPosition)
                 && Objects.equals(endPosition, that.endPosition)
-                && promotionpiece == that.promotionpiece;
+                && promotionPiece == that.promotionPiece;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(startPosition, endPosition, promotionpiece);
+        return Objects.hash(startPosition, endPosition, promotionPiece);
     }
 
     @Override
     public String toString() {
         return startPosition + " -> " + endPosition
-                + (promotionpiece != null ? "promote to " + promotionpiece : "");
+                + (promotionPiece != null ? "promote to " + promotionPiece : "");
     }
 }
