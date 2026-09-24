@@ -359,8 +359,8 @@ public class ChessPiece {
      */
     private void addPawnMove(
             Collection<ChessMove> moves,
-            ChessPosition, startPosition,
-            ChessPosition, endPosition,
+            ChessPosition startPosition,
+            ChessPosition endPosition,
             int promotionRow) {
 
         if (endPosition.getRow() == promotionRow) {
