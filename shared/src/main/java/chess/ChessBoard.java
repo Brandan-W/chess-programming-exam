@@ -76,12 +76,12 @@ public class ChessBoard {
         for (int  col = 1; col <=8; col++){
 
             addPiece(
-                    new ChessPosition(1, col),
+                    new ChessPosition(8, col),
                     new ChessPiece(ChessGame.TeamColor.BLACK, backRow[col -1])
             );
 
             addPiece(
-                    new ChessPosition(2, col),
+                    new ChessPosition(7, col),
                     new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.PAWN)
             );
         }
