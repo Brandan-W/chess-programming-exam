@@ -82,6 +82,16 @@ public class ChessPiece {
     /**
      * determine bishop moves
      */
+    private Collection<ChessMove> bishopMoves(ChessBoard board, ChessPosition myPosition) {
+        int[][] directions = {
+                {1, 1},
+                {1, -1},
+                {-1, 1},
+                {-1, -1}
+        };
+
+        return slidingMoves(board, myPosition, directions);
+    }
 
 
 
