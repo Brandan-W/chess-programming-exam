@@ -66,6 +66,18 @@ public class ChessPiece {
             return queenMoves(board, myPosition);
         }
 
+        if (type == PieceType.KNIGHT){
+            return knightMoves(board, myPosition);
+        }
+
+//        if (type == PieceType.KING){
+//            return kingMoves(board, myPosition);
+//        }
+
+//        if (type == PieceType.PAWN){
+//            return pawnMoves(board, myPosition);
+//        }
+
         throw new RuntimeException("Not implemented");
     }
 
@@ -115,10 +127,6 @@ public class ChessPiece {
         return slidingMoves(board, myPosition, directions);
     }
 
-
-
-
-
     /**
      * determinds movement for pieces that move repeatedly in a single stragight direction
      * untill blocked, like the rook, bishop, or queen
@@ -127,6 +135,7 @@ public class ChessPiece {
             ChessBoard board,
             ChessPosition myposition,
             int[][] directions) {
+
         Collection<ChessMove> moves = new ArrayList<>();
 
         for (int[] direction : directions) {
@@ -162,6 +171,53 @@ public class ChessPiece {
         return row >= 1 && row <=8
                 && col >= 1 && col <= 8;
     }
+
+    /**
+     * determinds all knight moves
+     */
+    private Collection<ChessMove> knightMoves(ChessBoard board, ChessPosition myPosition) {
+        Collection<ChessMove> moves = new ArrayList<>();
+
+        int[][] jumps = {
+                {2, 1},
+                {2, -1},
+                {-2, 1},
+                {-2, -1},
+                {1, 2},
+                {1, -2},
+                {-1, 2},
+                {-1, -2}
+        };
+
+        for (int[] jump : jumps){
+            int row = myPosition.getRow() + jump[0];
+            int col = myPosition.getColumn() + jump[1];
+
+            if (!isOnBoard(row, col)) {
+                continue;
+            }
+
+            ChessPosition endPosition = new ChessPosition(row, col);
+            ChessPiece pieceAtPosition = board.getPiece(endPosition);
+
+            if (pieceAtPosition == null
+                || pieceAtPosition.getTeamColor() != pieceColor){
+
+                moves.add(new ChessMove(myPosition, endPosition, null));
+            }
+        }
+
+        return moves;
+    }
+
+
+
+
+
+
+
+
+
 
     @Override
     public boolean equals(Object o) {
