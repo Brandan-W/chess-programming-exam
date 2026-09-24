@@ -131,10 +131,7 @@ public class ChessPiece {
      * determinds movement for pieces that move repeatedly in a single stragight direction
      * untill blocked, like the rook, bishop, or queen
      */
-    private Collection<ChessMove> slidingMoves(
-            ChessBoard board,
-            ChessPosition myposition,
-            int[][] directions) {
+    private Collection<ChessMove> slidingMoves(ChessBoard board, ChessPosition myposition, int[][] directions) {
 
         Collection<ChessMove> moves = new ArrayList<>();
 
@@ -280,12 +277,7 @@ public class ChessPiece {
 
             if (board.getPiece(oneStepPosition) == null) {
 
-                addPawnMove(
-                        moves,
-                        myPosition,
-                        oneStepPosition,
-                        promotionRow
-                );
+                addPawnMove(moves, myPosition, oneStepPosition, promotionRow);
 
                 // move forward 2 squares if from starting row
                 if (currentRow == startingRow) {
@@ -296,10 +288,7 @@ public class ChessPiece {
 
                     if (board.getPiece(twoStepPosition) ==  null) {
                         moves.add(
-                                new ChessMove(
-                                        myPosition,
-                                        twoStepPosition,
-                                        null)
+                                new ChessMove(myPosition, twoStepPosition,null)
                         );
                     }
                 }
@@ -320,12 +309,7 @@ public class ChessPiece {
             if (pieceAtPosition != null
                 && pieceAtPosition.getTeamColor() != pieceColor) {
 
-                addPawnMove(
-                        moves,
-                        myPosition,
-                        capturePosition,
-                        promotionRow
-                );
+                addPawnMove(moves, myPosition, capturePosition, promotionRow);
             }
         }
 
@@ -342,12 +326,7 @@ public class ChessPiece {
             if (pieceAtPosition != null
                 && pieceAtPosition.getTeamColor() != pieceColor) {
 
-                addPawnMove(
-                        moves,
-                        myPosition,
-                        capturePosition,
-                        promotionRow
-                );
+                addPawnMove(moves, myPosition, capturePosition, promotionRow);
             }
         }
 
@@ -357,44 +336,20 @@ public class ChessPiece {
     /**
      * Add all normal pawn moves and possible promotion moves
      */
-    private void addPawnMove(
-            Collection<ChessMove> moves,
-            ChessPosition startPosition,
-            ChessPosition endPosition,
-            int promotionRow) {
+    private void addPawnMove(Collection<ChessMove> moves, ChessPosition startPosition, ChessPosition endPosition, int promotionRow) {
 
         if (endPosition.getRow() == promotionRow) {
 
-            moves.add(new ChessMove(
-                    startPosition,
-                    endPosition,
-                    PieceType.QUEEN
-            ));
+            moves.add(new ChessMove(startPosition, endPosition, PieceType.QUEEN));
 
-            moves.add(new ChessMove(
-                    startPosition,
-                    endPosition,
-                    PieceType.ROOK
-            ));
+            moves.add(new ChessMove(startPosition, endPosition, PieceType.ROOK));
 
-            moves.add(new ChessMove(
-                    startPosition,
-                    endPosition,
-                    PieceType.BISHOP
-            ));
+            moves.add(new ChessMove(startPosition, endPosition, PieceType.BISHOP));
 
-            moves.add(new ChessMove(
-                    startPosition,
-                    endPosition,
-                    PieceType.KNIGHT
-            ));
+            moves.add(new ChessMove(startPosition, endPosition, PieceType.KNIGHT));
 
         } else {
-            moves.add(new ChessMove(
-                    startPosition,
-                    endPosition,
-                    null
-            ));
+            moves.add(new ChessMove(startPosition, endPosition,null));
         }
     }
 
